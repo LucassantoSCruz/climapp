@@ -1,10 +1,38 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Image, ScrollView, TextInput } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
+import citiesData from '../data/cities.json'
+import { MaterialIcons } from '@expo/vector-icons';
+import { useState } from 'react';
 
 const Cities = () => {
+
+    const [search, setSearch] = useState()
+
+    console.log(citiesData);
+
     return (
         <LinearGradient colors={["#00457D", "#05051F"]} style={style.container}>
-
+            <View style={style.inputContainer}>
+                <TextInput placeholder='Digite a cidade' placeholderTextColor={'#FFFFFF'}/>
+                <MaterialIcons name='search' size={24} color={'#FFFFFF'} />
+            </View>
+            <ScrollView>
+                <View style={style.scrollList}>
+                    {
+                        citiesData.map(city => (
+                            <View key={city.city} style={style.listItem}>
+                                <Image style={style.cityImage} source={require('../assets/images/clouds.png')} />
+                                <Text style={style.cityName}>
+                                    {city.city.replace(',',' -')}
+                                </Text>
+                                <Text style={style.cityTemp}>
+                                    {city.temp}°
+                                </Text>
+                            </View>
+                        ))
+                    }
+                </View>
+            </ScrollView>
         </LinearGradient>
     )
 }
@@ -12,32 +40,51 @@ const Cities = () => {
 const style = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: 64,
-        paddingVertical: 79,
-        paddingHorizontal: 32
+        paddingHorizontal: 16,
+        gap: 16,
+        paddingTop: 40
     },
-    title: {
-        fontSize: 25,
-        color: '#FFF',
-        fontFamily: 'Montserrat_400Regular'
+    scrollList: {
+        gap: 16
     },
-    button: {
-        width: "100%",
-        height: 40,
-        backgroundColor: '#7693FF',
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: 32,
+    listItem: {
         flexDirection: 'row',
-        gap: 8
+        height: 63,
+        width: '100%',
+        backgroundColor: '#FFFFFF15',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        borderRadius: 16,
+        paddingHorizontal: 16
     },
-    buttonTitle: {
-        color: '#01080E',
-        fontSize: 20,
-        fontWeight: '600',
-        fontFamily: 'Montserrat_600SemiBold'
+    cityName: {
+        color: '#FFF',
+        fontSize: 16,
+        fontFamily: 'Montserrat_500Medium'
+    },
+    cityTemp: {
+        color: '#FFF',
+        fontSize: 25,
+        fontFamily: 'Montserrat_700Bold'
+    },
+    cityImage: {
+        width: 27,
+        height: 24
+    },
+    inputContainer: {
+        height: 36,
+        width: '100%',
+        backgroundColor: '#FFFFFF15',
+        borderRadius: 24,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingHorizontal: 16
+    },
+    input: {
+        color: '#FFFFFF',
+        fontSize: 16,
+        fontFamily: "Montserrat_500Medium",
     }
 })
 

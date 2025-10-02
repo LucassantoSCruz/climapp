@@ -3,7 +3,7 @@ import { Montserrat_400Regular, Montserrat_500Medium, Montserrat_600SemiBold, Mo
 
 export default function RootLayout() {
 
-  const [ loaded ] = useFonts({
+  const [loaded] = useFonts({
     Montserrat_400Regular,
     Montserrat_500Medium,
     Montserrat_600SemiBold,
@@ -18,6 +18,12 @@ export default function RootLayout() {
     <Stack>
       <Stack.Screen
         name="index"
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="cities"
         options={{
           headerShown: false,
         }}
