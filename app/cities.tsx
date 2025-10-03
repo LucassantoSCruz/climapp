@@ -1,34 +1,49 @@
-import { View, Text, StyleSheet, Image, ScrollView, TextInput } from 'react-native'
+import { View, Text, StyleSheet, Image, ScrollView, TextInput, TouchableOpacity } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 import citiesData from '../data/cities.json'
 import { MaterialIcons } from '@expo/vector-icons';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'expo-router';
 
 const Cities = () => {
+    const router = useRouter()
+    const [search, setSearch] = useState("");
+    const [filteredCities, setFilteredCities] = useState(citiesData)
 
-    const [search, setSearch] = useState()
+    useEffect(() => {
+        const newFilteredCities = citiesData.filter((city) =>
+            city.city.toLocaleLowerCase().includes(search.toLowerCase())
+        );
 
-    console.log(citiesData);
+        setFilteredCities(newFilteredCities);
+    }, [search])
 
     return (
         <LinearGradient colors={["#00457D", "#05051F"]} style={style.container}>
             <View style={style.inputContainer}>
-                <TextInput placeholder='Digite a cidade' placeholderTextColor={'#FFFFFF'}/>
+                <TextInput placeholder='Digite a cidade'
+                    placeholderTextColor={'#FFFFFF'}
+                    style={style.input}
+                    value={search}
+                    onChangeText={(value) => setSearch(value)}
+                />
                 <MaterialIcons name='search' size={24} color={'#FFFFFF'} />
             </View>
             <ScrollView>
                 <View style={style.scrollList}>
                     {
-                        citiesData.map(city => (
-                            <View key={city.city} style={style.listItem}>
+                        filteredCities.map(city => (
+                            <TouchableOpacity key={city.city} style={style.listItem} onPress={() => {
+                                router.push(`/${city.city_name}`);
+                            }}>
                                 <Image style={style.cityImage} source={require('../assets/images/clouds.png')} />
                                 <Text style={style.cityName}>
-                                    {city.city.replace(',',' -')}
+                                    {city.city.replace(',', ' -')}
                                 </Text>
                                 <Text style={style.cityTemp}>
                                     {city.temp}°
                                 </Text>
-                            </View>
+                            </TouchableOpacity>
                         ))
                     }
                 </View>
@@ -72,7 +87,7 @@ const style = StyleSheet.create({
         height: 24
     },
     inputContainer: {
-        height: 36,
+        height: 50,
         width: '100%',
         backgroundColor: '#FFFFFF15',
         borderRadius: 24,
