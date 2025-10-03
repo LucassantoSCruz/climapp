@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, Image, ScrollView, TextInput, TouchableOpacity 
 import { LinearGradient } from 'expo-linear-gradient'
 import citiesData from '../data/cities.json'
 import { MaterialIcons } from '@expo/vector-icons';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'expo-router';
 
 const Cities = () => {
@@ -56,7 +56,7 @@ const style = StyleSheet.create({
     container: {
         flex: 1,
         paddingHorizontal: 16,
-        gap: 16,
+        gap: 40,
         paddingTop: 40
     },
     scrollList: {

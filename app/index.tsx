@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient'
 import { MaterialIcons } from "@expo/vector-icons";
 import { router, useRouter } from "expo-router";
+import React from 'react';
 
 export default function Index() {
   return (

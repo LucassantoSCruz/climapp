@@ -1,5 +1,6 @@
 import { Stack } from "expo-router";
 import { Montserrat_400Regular, Montserrat_500Medium, Montserrat_600SemiBold, Montserrat_700Bold, useFonts } from '@expo-google-fonts/montserrat'
+import React from 'react';
 
 export default function RootLayout() {
 
